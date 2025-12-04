@@ -1,0 +1,8 @@
+"crops": [
+    {"name": "crop", "type": "TEXT"},
+    {"name": "normal_area_dafw", "type": "FLOAT"},
+    {"name": "area_sown_2025_26", "type": "FLOAT"},
+    {"name": "area_sown_2024_25", "type": "FLOAT"},
+    {"name": "difference_area", "type": "FLOAT"},
+    {"name": "pct_increase_decrease", "type": "FLOAT"}
+  ]
