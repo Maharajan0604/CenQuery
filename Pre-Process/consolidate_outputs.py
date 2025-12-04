@@ -33,7 +33,7 @@ SOURCES = {
         "language_stats.csv",
         "languages.csv"
     ],
-    "output_normalized_crop": [  # FIX: Updated to use underscore name
+    "output_normalized_crops": [  # FIX: Updated to use underscore name
         "crops.csv"
     ]
 }
