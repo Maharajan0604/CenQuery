@@ -9,8 +9,10 @@ load_dotenv()
 # ==========================================
 # 🔧 CONFIGURATION
 # ==========================================
-RELIGIONS_LOOKUP_FILE = "output_normalized/religions.csv"
-RELIGION_STATS_FILE = "output_normalized/religion_stats.csv"
+RELIGIONS_FILE = "output_normalized/religions.csv"
+TRU_FILE = "output_normalized/tru.csv"
+STATS_FILE = "output_normalized/religion_stats.csv"
+TABLE_NAME = "religion_stats"
 
 # Fetch variables
 USER = os.getenv("user")
@@ -22,8 +24,7 @@ DBNAME = os.getenv("dbname")
 DB_CONNECTION_STRING = f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}?sslmode=require"
 
 def enable_rls(table_name, engine):
-    """Secures the table with RLS."""
-    print(f"  🔒 Securing table '{table_name}'...")
+    print(f"  🔒 Securing '{table_name}'...")
     try:
         with engine.begin() as conn:
             conn.execute(text(f'ALTER TABLE "{table_name}" ENABLE ROW LEVEL SECURITY;'))
@@ -31,95 +32,102 @@ def enable_rls(table_name, engine):
             conn.execute(text(f'CREATE POLICY "Public Read Access" ON "{table_name}" FOR SELECT USING (true);'))
         print(f"     ✅ Security applied.")
     except Exception as e:
-        print(f"     ⚠️ Error applying security: {e}")
+        print(f"     ⚠️ Error: {e}")
 
-def upload_lookup_table(engine):
-    """Uploads the religions lookup table."""
-    if not os.path.exists(RELIGIONS_LOOKUP_FILE):
-        print(f"❌ Error: {RELIGIONS_LOOKUP_FILE} not found. Run normalization first.")
-        return False
+def upload_lookups(engine):
+    # 1. Upload Religions Lookup
+    if os.path.exists(RELIGIONS_FILE):
+        print(f"\n🚀 Uploading 'religions' lookup...")
+        df_rel = pd.read_csv(RELIGIONS_FILE)
+        try:
+            df_rel.to_sql('religions', engine, if_exists='replace', index=False)
+            with engine.begin() as conn:
+                conn.execute(text("ALTER TABLE religions ADD PRIMARY KEY (id);"))
+            enable_rls('religions', engine)
+            print("     ✅ Uploaded 'religions'")
+        except Exception as e:
+            print(f"     ❌ Error uploading religions: {e}")
 
-    print(f"\n🚀 Uploading LOOKUP table: 'religions'...")
-    df = pd.read_csv(RELIGIONS_LOOKUP_FILE)
+    # 2. Upload TRU Lookup (Skip if it exists to avoid breaking PCA FKs)
+    # We try to create it only if it doesn't exist, or we can use 'if_exists="append"' if we are sure IDs match.
+    # Safe bet: If you ran PCA upload, 'tru' exists. If not, this will create it.
+    if os.path.exists(TRU_FILE):
+        print(f"\n🚀 Checking 'tru' lookup...")
+        df_tru = pd.read_csv(TRU_FILE)
+        try:
+            # We use 'replace' ONLY if we are sure no other table uses it yet. 
+            # Since PCA might use it, this part can be tricky. 
+            # Best practice: Try to upload, handle error if table exists.
+            # For simplicity in this script, we assume we can overwrite or it matches.
+            # If PCA is already up, 'replace' will FAIL due to Foreign Key constraint.
+            # So we catch that specific error.
+            df_tru.to_sql('tru', engine, if_exists='replace', index=False)
+            with engine.begin() as conn:
+                conn.execute(text("ALTER TABLE tru ADD PRIMARY KEY (id);"))
+            enable_rls('tru', engine)
+            print("     ✅ Uploaded/Updated 'tru'")
+        except Exception as e:
+            print(f"     ℹ️  'tru' table likely exists (linked to PCA). Skipping overwrite.")
+
+def upload_stats(engine):
+    if not os.path.exists(STATS_FILE):
+        print(f"❌ Error: {STATS_FILE} not found.")
+        return
+
+    print(f"\n🚀 Uploading DATA table: '{TABLE_NAME}'...")
+    df_iter = pd.read_csv(STATS_FILE, chunksize=5000)
     
     try:
-        # 1. Upload
-        df.to_sql('religions', engine, if_exists='replace', index=False)
-        print(f"     ✅ Data uploaded ({len(df)} rows).")
-        
-        # 2. Set Primary Key
-        with engine.begin() as conn:
-            conn.execute(text("ALTER TABLE religions ADD PRIMARY KEY (id);"))
-        print(f"     ✅ Primary Key enforced.")
-        
-        enable_rls('religions', engine)
-        return True
-    except Exception as e:
-        print(f"     ❌ Error uploading lookup: {e}")
-        return False
-
-def upload_stats_table(engine):
-    """Uploads stats and links to BOTH Regions and Religions."""
-    if not os.path.exists(RELIGION_STATS_FILE):
-        print(f"❌ Error: {RELIGION_STATS_FILE} not found.")
-        return False
-
-    print(f"\n🚀 Uploading DATA table: 'religion_stats'...")
-    # Load data in chunks to prevent memory issues
-    df_iter = pd.read_csv(RELIGION_STATS_FILE, chunksize=5000)
-    
-    try:
-        # 1. Upload in Chunks
         first_chunk = True
         total_rows = 0
         for chunk in df_iter:
             mode = 'replace' if first_chunk else 'append'
-            chunk.to_sql('religion_stats', engine, if_exists=mode, index=False)
+            chunk.to_sql(TABLE_NAME, engine, if_exists=mode, index=False)
             first_chunk = False
             total_rows += len(chunk)
             print(f"     ... uploaded {total_rows} rows")
             
-        print(f"     ✅ Total uploaded: {total_rows} rows.")
-        
-        # 2. Add Foreign Keys (The 3-Table Link)
+        # Add ALL Foreign Keys
+        print("🔗 Linking Foreign Keys...")
         with engine.begin() as conn:
-            # Link to Regions (State)
-            conn.execute(text("""
-                ALTER TABLE religion_stats 
+            # 1. Link to Regions
+            conn.execute(text(f"""
+                ALTER TABLE {TABLE_NAME} 
                 ADD CONSTRAINT fk_regions_rel 
                 FOREIGN KEY (state) REFERENCES regions(state);
             """))
-            print(f"     ✅ Linked to 'regions' table.")
+            print("     ✅ Linked to 'regions'")
 
-            # Link to Religions (Religion ID)
-            conn.execute(text("""
-                ALTER TABLE religion_stats 
+            # 2. Link to Religions
+            conn.execute(text(f"""
+                ALTER TABLE {TABLE_NAME} 
                 ADD CONSTRAINT fk_religions_lookup 
                 FOREIGN KEY (religion_id) REFERENCES religions(id);
             """))
-            print(f"     ✅ Linked to 'religions' table.")
+            print("     ✅ Linked to 'religions'")
+
+            # 3. Link to TRU
+            conn.execute(text(f"""
+                ALTER TABLE {TABLE_NAME} 
+                ADD CONSTRAINT fk_tru_rel 
+                FOREIGN KEY (tru_id) REFERENCES tru(id);
+            """))
+            print("     ✅ Linked to 'tru'")
         
-        enable_rls('religion_stats', engine)
-        return True
+        enable_rls(TABLE_NAME, engine)
         
     except Exception as e:
         print(f"     ❌ Error uploading stats: {e}")
-        return False
 
-# ==========================================
-# 🏁 MAIN
-# ==========================================
 if __name__ == "__main__":
     try:
         engine = create_engine(DB_CONNECTION_STRING, poolclass=NullPool)
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))
         print("✅ Connected to Supabase.")
-
-        # Step 1: Upload Lookup
-        if upload_lookup_table(engine):
-            # Step 2: Upload Data & Link
-            upload_stats_table(engine)
-            
+        
+        upload_lookups(engine)
+        upload_stats(engine)
+        
     except Exception as e:
-        print(f"❌ Critical Error: {e}")
+        print(f"❌ Connection failed: {e}")
