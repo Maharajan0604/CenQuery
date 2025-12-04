@@ -1,0 +1,19 @@
+{
+    "regions": [
+      {"name": "state", "type": "INTEGER", "primary_key": true},
+      {"name": "area_name", "type": "TEXT"}
+    ],
+    "population_stats": [
+      {"name": "state", "type": "INTEGER", "foreign_key": "regions.state"},
+      {"name": "age", "type": "TEXT"},
+      {"name": "total_persons", "type": "BIGINT"},
+      {"name": "total_males", "type": "BIGINT"},
+      {"name": "total_females", "type": "BIGINT"},
+      {"name": "rural_persons", "type": "BIGINT"},
+      {"name": "rural_males", "type": "BIGINT"},
+      {"name": "rural_females", "type": "BIGINT"},
+      {"name": "urban_persons", "type": "BIGINT"},
+      {"name": "urban_males", "type": "BIGINT"},
+      {"name": "urban_females", "type": "BIGINT"}
+    ]
+  }
