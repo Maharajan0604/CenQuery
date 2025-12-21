@@ -1,13 +1,3 @@
-How many Muslims live in Kerala?
-Count the number of Hindi speakers in Uttar Pradesh.
-How many Christians live in rural areas compared to urban areas in Goa?
-What are the top 3 most spoken languages in Karnataka?
-Which religious group has the highest literacy rate across India?
-How many women list Tamil as their main language in Tamil Nadu?
-Find the total number of Jains in Maharashtra who aren't working.
-How many villagers in West Bengal speak Bengali?
-Which state has a larger Sikh population: Punjab or Haryana?
-What is the difference between male and female literacy numbers for Hindus in India?
 Which states have the biggest population overall? Rank them from highest to lowest.
 Where do most rural people live? Show me the top 5 states.
 Which states have the largest urban population? Give me the top 5.
