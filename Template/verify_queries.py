@@ -15,7 +15,7 @@ if not DB_CONNECTION_STRING:
     print("❌ Error: DB_CONNECTION_STRING not found in .env file.")
     sys.exit(1)
 
-SQL_FILE = "queries_sk.sql"
+SQL_FILE = "queries_mk.sql"
 
 def load_queries(filepath):
     """Reads queries from the file (one query per line)."""
@@ -62,6 +62,7 @@ def verify_queries():
                 except Exception as q_err:
                     print(f"❌ Query #{index} Failed: {q_err}")
                     conn.rollback()
+                
                 print("-" * 50)
 
     except Exception as e:
