@@ -1,3 +1,4 @@
+📄 Output is being saved to: D:\College Study\Semester 8\Major Project\CenSQL\Template\output.txt
 🚀 Connecting to Database...
 📋 Found 150 queries. Starting verification...
 
@@ -494,6 +495,7 @@ Dadra & Nagar Haveli
 --------------------------------------------------
 🔹 Running Query #67...
 ⚠️  Query ran successfully but returned NO data.
+Query: SELECT ls.female FROM language_stats ls JOIN regions r ON ls.state = r.state JOIN languages l ON ls.language_id = l.id JOIN tru t ON ls.tru_id = t.id WHERE r.area_name = 'Telangana' AND l.name = 'Telugu' AND t.name = 'Total';
 --------------------------------------------------
 🔹 Running Query #68...
 ✅ Success! Returned 36 rows.
@@ -907,6 +909,7 @@ Uttar Pradesh
 --------------------------------------------------
 🔹 Running Query #120...
 ⚠️  Query ran successfully but returned NO data.
+Query: SELECT t.name, ls.person FROM language_stats ls JOIN regions r ON ls.state = r.state JOIN languages l ON ls.language_id = l.id JOIN tru t ON ls.tru_id = t.id WHERE r.area_name = 'Gujarat' AND l.name = 'Jain' AND t.name IN ('Rural', 'Urban') ORDER BY ls.person DESC;
 --------------------------------------------------
 🔹 Running Query #121...
 ⚠️  Query ran successfully but returned NO data.
@@ -1054,6 +1057,7 @@ Castorseed
 --------------------------------------------------
 🔹 Running Query #139...
 ⚠️  Query ran successfully but returned NO data.
+Query: SELECT ls.person FROM language_stats ls JOIN regions r ON ls.state = r.state JOIN languages l ON ls.language_id = l.id JOIN tru t ON ls.tru_id = t.id WHERE r.area_name = 'Arunachal Pradesh' AND l.name = 'Nishi' AND t.name = 'Total';
 --------------------------------------------------
 🔹 Running Query #140...
 ⚠️  Query ran successfully but returned NO data.

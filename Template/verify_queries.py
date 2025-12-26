@@ -7,6 +7,33 @@ from sqlalchemy import create_engine, text
 # 1. Load Environment Variables
 load_dotenv()
 
+# --- CONFIG: Dual Output (Console + File) ---
+class DualLogger:
+    """Writes output to both the console and a file simultaneously."""
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = open(filename, "w", encoding="utf-8")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+
+    def flush(self):
+        # Needed for python 3 compatibility
+        self.terminal.flush()
+        self.log.flush()
+
+# Force UTF-8 on the terminal first (for emojis)
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
+
+# Redirect stdout and stderr to our DualLogger
+# This captures all print() statements and errors
+OUTPUT_FILE = "output.txt"
+sys.stdout = DualLogger(OUTPUT_FILE)
+sys.stderr = sys.stdout 
+# --------------------------------------------
+
 # Get the single connection string from .env
 DB_CONNECTION_STRING = os.getenv("DB_CONNECTION_STRING")
 
@@ -28,6 +55,7 @@ def load_queries(filepath):
         return [line.strip() for line in f if line.strip()]
 
 def verify_queries():
+    print(f"📄 Output is being saved to: {os.path.abspath(OUTPUT_FILE)}")
     print("🚀 Connecting to Database...")
     
     try:
@@ -50,12 +78,16 @@ def verify_queries():
                     
                     # Check for data
                     if result.returns_rows:
-                        df = pd.DataFrame(result.fetchall(), columns=list(result.keys()))
+                        rows = result.fetchall()
+                        df = pd.DataFrame(rows, columns=list(result.keys()))
+                        
                         if not df.empty:
                             print(f"✅ Success! Returned {len(df)} rows.")
-                            print(df.head().to_string(index=False)) # Show top 5 rows
+                            # to_string handles formatting nicely for text files
+                            print(df.head().to_string(index=False)) 
                         else:
                             print("⚠️  Query ran successfully but returned NO data.")
+                            print(f"Query: {sql_query}")
                     else:
                         print("✅ Query executed (No rows returned).")
 
