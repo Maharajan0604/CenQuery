@@ -1,0 +1,105 @@
+question,gold_sql,pred_sql,latency_sec,string_match_percentage
+How many heads of the departments are older than 56 ?,SELECT COUNT(*) FROM head WHERE age > 56,SELECT COUNT(*) FROM head WHERE age > 56;,2.3705198764801025,97.5609756097561
+"List the name, born state and age of the heads of departments ordered by age.","SELECT name, born_state, age FROM head ORDER BY age","SELECT name, born_state, age FROM head ORDER BY age;",2.3776164054870605,98.07692307692307
+"List the creation year, name and budget of each department.","SELECT creation, name, budget_in_billions FROM department","SELECT creation, name, budget_in_billions AS budget FROM department;",2.4577572345733643,83.82352941176471
+What are the maximum and minimum budget of the departments?,"SELECT MAX(budget_in_billions), MIN(budget_in_billions) FROM department","SELECT MAX(budget_in_billions) AS max_budget, MIN(budget_in_billions) AS min_budget FROM department;",2.321763515472412,71.0
+What is the average number of employees of the departments whose rank is between 10 and 15?,SELECT AVG(num_employees) FROM department WHERE ranking BETWEEN 10 AND 15,SELECT AVG(num_employees) FROM department WHERE ranking BETWEEN 10 AND 15;,2.482827663421631,98.64864864864865
+What are the names of the heads who are born outside the California state?,SELECT name FROM head WHERE born_state <> 'California',SELECT name FROM head WHERE born_state <> 'California';,2.35418701171875,98.18181818181819
+What are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?,SELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id = T2.department_id JOIN head AS T3 ON T2.head_id = T3.head_id WHERE T3.born_state = 'Alabama',"SELECT DISTINCT SUBSTRING(d.creation,1,4) AS creation_year
+FROM department d
+JOIN management m ON d.department_id = m.department_id
+JOIN head h ON m.head_id = h.head_id
+WHERE h.born_state = 'Alabama';",2.5716309547424316,69.5
+What are the names of the states where at least 3 heads were born?,SELECT born_state FROM head GROUP BY born_state HAVING COUNT(*) >= 3,SELECT born_state FROM head GROUP BY born_state HAVING COUNT(*) >= 3,2.3757495880126953,100.0
+In which year were most departments established?,SELECT creation FROM department GROUP BY creation ORDER BY COUNT(*) DESC LIMIT 1,"SELECT LEFT(creation,4) AS year, COUNT(*) AS total FROM department GROUP BY year ORDER BY total DESC LIMIT 1;",2.570969820022583,55.96330275229357
+Show the name and number of employees for the departments managed by heads whose temporary acting value is 'Yes'?,"SELECT T1.name, T1.num_employees FROM department AS T1 JOIN management AS T2 ON T1.department_id = T2.department_id WHERE T2.temporary_acting = 'Yes'","SELECT d.name, d.num_employees FROM department d JOIN management m ON d.department_id = m.department_id WHERE m.temporary_acting='Yes';",2.402461528778076,84.56375838926175
+How many acting statuses are there?,SELECT COUNT(DISTINCT temporary_acting) FROM management,SELECT COUNT(DISTINCT temporary_acting) FROM management;,2.3574421405792236,98.21428571428571
+How many departments are led by heads who are not mentioned?,SELECT COUNT(*) FROM department WHERE NOT department_id IN (SELECT department_id FROM management),SELECT COUNT(*) FROM department d LEFT JOIN management m ON d.department_id = m.department_id WHERE m.department_id IS NULL;,2.4573814868927,54.83870967741935
+What are the distinct ages of the heads who are acting?,SELECT DISTINCT T1.age FROM management AS T2 JOIN head AS T1 ON T1.head_id = T2.head_id WHERE T2.temporary_acting = 'Yes',"SELECT DISTINCT h.age
+FROM head h
+JOIN management m ON h.head_id = m.head_id
+WHERE m.temporary_acting = 'TRUE';",2.5303685665130615,67.76859504132231
+List the states where both the secretary of 'Treasury' department and the secretary of 'Homeland Security' were born.,SELECT T3.born_state FROM department AS T1 JOIN management AS T2 ON T1.department_id = T2.department_id JOIN head AS T3 ON T2.head_id = T3.head_id WHERE T1.name = 'Treasury' INTERSECT SELECT T3.born_state FROM department AS T1 JOIN management AS T2 ON T1.department_id = T2.department_id JOIN head AS T3 ON T2.head_id = T3.head_id WHERE T1.name = 'Homeland Security',"SELECT DISTINCT h1.born_state
+FROM head h1
+JOIN management m1 ON h1.head_id = m1.head_id
+JOIN department d1 ON m1.department_id = d1.department_id
+WHERE d1.name = 'Treasury'
+  AND h1.born_state IN (
+      SELECT h2.born_state
+      FROM head h2
+      JOIN management m2 ON h2.head_id = m2.head_id
+      JOIN department d2 ON m2.department_id = d2.department_id
+      WHERE d2.name = 'Homeland Security'
+  );",3.2330620288848877,51.842751842751845
+"Which department has more than 1 head at a time? List the id, name and the number of heads.","SELECT T1.department_id, T1.name, COUNT(*) FROM management AS T2 JOIN department AS T1 ON T1.department_id = T2.department_id GROUP BY T1.department_id HAVING COUNT(*) > 1","SELECT m.department_id, d.name, COUNT(*) AS num_heads
+FROM management m
+JOIN department d ON m.department_id = d.department_id
+GROUP BY m.department_id, d.name
+HAVING COUNT(*) > 1;",2.433422565460205,75.55555555555556
+Which head's name has the substring 'Ha'? List the id and name.,"SELECT head_id, name FROM head WHERE name LIKE '%Ha%'","SELECT head_id, name FROM head WHERE name LIKE '%Ha%' ;",2.4005162715911865,96.36363636363636
+How many farms are there?,SELECT COUNT(*) FROM farm,SELECT COUNT(*) FROM farm;,2.2819175720214844,96.15384615384616
+List the total number of horses on farms in ascending order.,SELECT Total_Horses FROM farm ORDER BY Total_Horses,SELECT Total_Horses FROM farm ORDER BY CAST(Total_Horses AS INTEGER) ASC;,2.4918527603149414,69.86301369863014
+"What are the hosts of competitions whose theme is not ""Aliens""?",SELECT Hosts FROM farm_competition WHERE Theme <> 'Aliens',SELECT Hosts FROM farm_competition WHERE Theme <> 'Aliens';,2.339975357055664,98.30508474576271
+What are the themes of farm competitions sorted by year in ascending order?,SELECT Theme FROM farm_competition ORDER BY YEAR,SELECT Theme FROM farm_competition ORDER BY YEAR ASC;,2.432865858078003,90.56603773584906
+What is the average number of working horses of farms with more than 5000 total number of horses?,SELECT AVG(Working_Horses) FROM farm WHERE Total_Horses > 5000,SELECT AVG(Working_Horses) FROM farm WHERE Total_Horses > 5000;,2.3417773246765137,98.41269841269842
+What are the maximum and minimum number of cows across all farms.,"SELECT MAX(Cows), MIN(Cows) FROM farm","SELECT MAX(Cows) AS max_cows, MIN(Cows) AS min_cows FROM farm;",2.332990884780884,59.67741935483871
+How many different statuses do cities have?,SELECT COUNT(DISTINCT Status) FROM city,SELECT COUNT(DISTINCT Status) FROM city;,2.348865032196045,97.5
+List official names of cities in descending order of population.,SELECT Official_Name FROM city ORDER BY Population DESC,SELECT Official_Name FROM city ORDER BY CAST(Population AS INTEGER) DESC;,2.475928544998169,75.34246575342466
+List the official name and status of the city with the largest population.,"SELECT Official_Name, Status FROM city ORDER BY Population DESC LIMIT 1","SELECT Official_Name, Status FROM city ORDER BY CAST(Population AS SIGNED) DESC LIMIT 1;",2.435689926147461,80.68181818181819
+Show the years and the official names of the host cities of competitions.,"SELECT T2.Year, T1.Official_Name FROM city AS T1 JOIN farm_competition AS T2 ON T1.City_ID = T2.Host_city_ID","SELECT fc.Year, c.Official_Name FROM farm_competition fc JOIN city c ON fc.Host_city_ID = c.City_ID;",2.441483974456787,56.48148148148149
+Show the official names of the cities that have hosted more than one competition.,SELECT T1.Official_Name FROM city AS T1 JOIN farm_competition AS T2 ON T1.City_ID = T2.Host_city_ID GROUP BY T2.Host_city_ID HAVING COUNT(*) > 1,"SELECT c.Official_Name
+FROM farm_competition fc
+JOIN city c ON fc.Host_city_ID = c.City_ID
+GROUP BY c.Official_Name
+HAVING COUNT(*) > 1;",2.360008478164673,58.33333333333333
+Show the status of the city that has hosted the greatest number of competitions.,SELECT T1.Status FROM city AS T1 JOIN farm_competition AS T2 ON T1.City_ID = T2.Host_city_ID GROUP BY T2.Host_city_ID ORDER BY COUNT(*) DESC LIMIT 1,"SELECT c.Status
+FROM city c
+WHERE c.City_ID IN (
+    SELECT Host_city_ID
+    FROM farm_competition
+    GROUP BY Host_city_ID
+    HAVING COUNT(*) = (
+        SELECT MAX(cnt)
+        FROM (
+            SELECT Host_city_ID, COUNT(*) AS cnt
+            FROM farm_competition
+            GROUP BY Host_city_ID
+        ) t
+    )
+);",2.6585724353790283,29.230769230769226
+Please show the themes of competitions with host cities having populations larger than 1000.,SELECT T2.Theme FROM city AS T1 JOIN farm_competition AS T2 ON T1.City_ID = T2.Host_city_ID WHERE T1.Population > 1000,SELECT fc.Theme FROM farm_competition fc JOIN city c ON fc.Host_city_ID = c.City_ID WHERE c.Population > 1000;,2.3447630405426025,60.16949152542372
+Please show the different statuses of cities and the average population of cities with each status.,"SELECT Status, AVG(Population) FROM city GROUP BY Status","SELECT Status, AVG(Population) AS AveragePopulation FROM city GROUP BY Status;",2.361660957336426,71.7948717948718
+"Please show the different statuses, ordered by the number of cities that have each.",SELECT Status FROM city GROUP BY Status ORDER BY COUNT(*),"SELECT Status, COUNT(*) AS city_count FROM city GROUP BY Status ORDER BY city_count DESC;",2.432673692703247,60.67415730337078
+List the most common type of Status across cities.,SELECT Status FROM city GROUP BY Status ORDER BY COUNT(*) DESC LIMIT 1,SELECT Status FROM city GROUP BY Status ORDER BY COUNT(*) DESC LIMIT 1;,2.379666566848755,98.59154929577466
+List the official names of cities that have not held any competition.,SELECT Official_Name FROM city WHERE NOT City_ID IN (SELECT Host_city_ID FROM farm_competition),SELECT c.Official_Name FROM city c WHERE NOT EXISTS (SELECT 1 FROM farm_competition f WHERE f.Host_city_ID = c.City_ID);,2.6933035850524902,50.83333333333333
+Show the status shared by cities with population bigger than 1500 and smaller than 500.,SELECT Status FROM city WHERE Population > 1500 INTERSECT SELECT Status FROM city WHERE Population < 500,SELECT Status FROM city WHERE Population > 1500 OR Population < 500;,2.742069959640503,63.46153846153846
+Find the official names of cities with population bigger than 1500 or smaller than 500.,SELECT Official_Name FROM city WHERE Population > 1500 OR Population < 500,SELECT Official_Name FROM city WHERE CAST(Population AS INTEGER) > 1500 OR CAST(Population AS INTEGER) < 500;,2.5319762229919434,67.88990825688073
+"Show the census ranking of cities whose status are not ""Village"".","SELECT Census_Ranking FROM city WHERE Status <> ""Village""",SELECT Census_Ranking FROM city WHERE Status <> 'Village';,2.343852996826172,94.82758620689656
+which course has most number of registered students?,SELECT T1.course_name FROM courses AS T1 JOIN student_course_registrations AS T2 ON T1.course_id = T2.course_Id GROUP BY T1.course_id ORDER BY COUNT(*) DESC LIMIT 1,"SELECT c.course_name, c.course_id, COUNT(scr.course_Id) AS student_count FROM courses c LEFT JOIN student_course_registrations scr ON c.course_id = scr.course_Id GROUP BY c.course_id, c.course_name ORDER BY student_count DESC LIMIT 1;",2.5293161869049072,58.54700854700854
+what is id of students who registered some courses but the least number of courses in these students?,SELECT student_id FROM student_course_registrations GROUP BY student_id ORDER BY COUNT(*) LIMIT 1,"WITH cte AS (SELECT student_id, COUNT(*) AS cnt FROM student_course_registrations GROUP BY student_id) SELECT student_id FROM cte WHERE cnt = (SELECT MIN(cnt) FROM cte);",2.5004661083221436,49.70414201183432
+what are the first name and last name of all candidates?,"SELECT T2.first_name, T2.last_name FROM candidates AS T1 JOIN people AS T2 ON T1.candidate_id = T2.person_id","SELECT p.first_name, p.last_name FROM candidates c JOIN people p ON c.candidate_id = p.person_id;",2.4327759742736816,82.4074074074074
+List the id of students who never attends courses?,SELECT student_id FROM students WHERE NOT student_id IN (SELECT student_id FROM student_course_attendance),SELECT student_id FROM students s WHERE NOT EXISTS (SELECT 1 FROM student_course_attendance a WHERE a.student_id = s.student_id);,2.5284132957458496,53.48837209302326
+List the id of students who attended some courses?,SELECT student_id FROM student_course_attendance,SELECT DISTINCT student_id FROM student_course_attendance;,2.3492178916931152,82.75862068965517
+What are the ids of all students for courses and what are the names of those courses?,"SELECT T1.student_id, T2.course_name FROM student_course_registrations AS T1 JOIN courses AS T2 ON T1.course_id = T2.course_id","SELECT scr.student_id, c.course_name FROM student_course_registrations scr JOIN courses c ON scr.course_id = c.course_id;",2.4022018909454346,84.12698412698413
+What is detail of the student who most recently registered course?,SELECT T2.student_details FROM student_course_registrations AS T1 JOIN students AS T2 ON T1.student_id = T2.student_id ORDER BY T1.registration_date DESC LIMIT 1,"SELECT s.student_details
+FROM students s
+JOIN student_course_registrations r ON s.student_id = r.student_id
+WHERE r.registration_date = (SELECT MAX(registration_date) FROM student_course_registrations);",2.4487223625183105,48.51485148514851
+How many students attend course English?,"SELECT COUNT(*) FROM courses AS T1 JOIN student_course_attendance AS T2 ON T1.course_id = T2.course_id WHERE T1.course_name = ""English""",SELECT COUNT(*) FROM student_course_attendance sca JOIN courses c ON sca.course_id = c.course_id WHERE c.course_name = 'English';,2.3642733097076416,66.66666666666667
+How many courses do the student whose id is 171 attend?,SELECT COUNT(*) FROM courses AS T1 JOIN student_course_attendance AS T2 ON T1.course_id = T2.course_id WHERE T2.student_id = 171,SELECT COUNT(DISTINCT course_id) FROM student_course_attendance WHERE student_id='171';,2.357555627822876,51.5625
+Find id of the candidate whose email is stanley.monahan@example.org?,"SELECT T2.candidate_id FROM people AS T1 JOIN candidates AS T2 ON T1.person_id = T2.candidate_id WHERE T1.email_address = ""stanley.monahan@example.org""",SELECT c.candidate_id FROM candidates c JOIN people p ON c.candidate_id = p.person_id WHERE p.email_address = 'stanley.monahan@example.org';,2.4114112854003906,64.23841059602648
+Find id of the candidate who most recently accessed the course?,SELECT candidate_id FROM candidate_assessments ORDER BY assessment_date DESC LIMIT 1,SELECT candidate_id FROM candidate_assessments ORDER BY assessment_date DESC LIMIT 1;,2.4434525966644287,98.82352941176471
+What is detail of the student who registered the most number of courses?,SELECT T1.student_details FROM students AS T1 JOIN student_course_registrations AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id ORDER BY COUNT(*) DESC LIMIT 1,"SELECT s.student_details
+FROM students s
+JOIN (
+  SELECT student_id, COUNT(*) AS cnt
+  FROM student_course_registrations
+  GROUP BY student_id
+  ORDER BY cnt DESC
+  LIMIT 1
+) r ON s.student_id = r.student_id;",2.6734323501586914,46.15384615384615
+List the id of students who registered some courses and the number of their registered courses?,"SELECT T1.student_id, COUNT(*) FROM students AS T1 JOIN student_course_registrations AS T2 ON T1.student_id = T2.student_id GROUP BY T1.student_id","SELECT s.student_id, COUNT(r.student_id) AS registered_courses FROM students s JOIN student_course_registrations r ON s.student_id = r.student_id GROUP BY s.student_id;",2.563384771347046,69.04761904761905
+How many registed students do each course have? List course name and the number of their registered students?,"SELECT T3.course_name, COUNT(*) FROM students AS T1 JOIN student_course_registrations AS T2 ON T1.student_id = T2.student_id JOIN courses AS T3 ON T2.course_id = T3.course_id GROUP BY T2.course_id","SELECT c.course_name, COUNT(DISTINCT scr.student_id) AS registered_students
+FROM courses c
+LEFT JOIN student_course_registrations scr ON c.course_id = scr.course_id
+GROUP BY c.course_name;",2.491453170776367,48.97959183673469
