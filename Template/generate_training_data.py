@@ -7,8 +7,8 @@ import re
 # 🔧 CONFIGURATION
 # ==========================================
 SCHEMA_FILE = "database_schema.json"  # Your schema file
-QUESTIONS_FILE = "questions_sk.txt"      # File containing list of questions
-SQL_FILE = "queries_sk.sql"              # File containing list of SQL queries
+QUESTIONS_FILE = "sourish_questions.txt"      # File containing list of questions
+SQL_FILE = "sourish_queries.sql"              # File containing list of SQL queries
 OUTPUT_DIR = "training_data"
 
 def load_schema_string(schema_path):
@@ -104,7 +104,7 @@ def main():
     member_name = input("Enter your name (e.g., Member3): ").strip().replace(" ", "_")
     if not member_name: member_name = "Member_Unknown"
     
-    base_filename = f"train_{member_name}_final.jsonl"
+    base_filename = f"train_{member_name}.jsonl"
 
     # Load Data
     schema_string = load_schema_string(SCHEMA_FILE)
