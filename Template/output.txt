@@ -1,6 +1,6 @@
 📄 Output is being saved to: D:\College Study\Semester 8\Major Project\CenSQL\Template\output.txt
 🚀 Connecting to Database...
-📋 Found 100 queries. Starting verification...
+📋 Found 150 queries. Starting verification...
 
 🔹 Running Query #1...
 ✅ Success! Returned 1 rows.
@@ -737,4 +737,267 @@ area_name malayalam_speakers
 ✅ Success! Returned 1 rows.
 area_name punjabi_speakers
     India         64268821
+--------------------------------------------------
+🔹 Running Query #101...
+✅ Success! Returned 2 rows.
+  person
+51958730
+51937867
+--------------------------------------------------
+🔹 Running Query #102...
+✅ Success! Returned 1 rows.
+area_name odia_speakers
+    India      71580590
+--------------------------------------------------
+🔹 Running Query #103...
+✅ Success! Returned 2 rows.
+  person
+15095797
+14609227
+--------------------------------------------------
+🔹 Running Query #104...
+✅ Success! Returned 2 rows.
+  person
+29040962
+29019265
+--------------------------------------------------
+🔹 Running Query #105...
+✅ Success! Returned 1 rows.
+area_name konkani_speakers
+    India          4403408
+--------------------------------------------------
+🔹 Running Query #106...
+✅ Success! Returned 1 rows.
+literate_muslim_women
+             43573993
+--------------------------------------------------
+🔹 Running Query #107...
+✅ Success! Returned 1 rows.
+area_name literate_hindu_women
+    India            261925301
+--------------------------------------------------
+🔹 Running Query #108...
+✅ Success! Returned 1 rows.
+ tot_work_p
+    2267591
+--------------------------------------------------
+🔹 Running Query #109...
+✅ Success! Returned 1 rows.
+ p_ill
+ 83769
+--------------------------------------------------
+🔹 Running Query #110...
+✅ Success! Returned 1 rows.
+religion_name female_literacy_rate
+       Muslim  41.9595079738554508
+--------------------------------------------------
+🔹 Running Query #111...
+✅ Success! Returned 1 rows.
+  tot_m
+6474159
+--------------------------------------------------
+🔹 Running Query #112...
+✅ Success! Returned 1 rows.
+area_name urban_buddhists
+    India         3628123
+--------------------------------------------------
+🔹 Running Query #113...
+✅ Success! Returned 2 rows.
+  person
+13063042
+12918324
+--------------------------------------------------
+🔹 Running Query #114...
+✅ Success! Returned 1 rows.
+area_name santali_speakers
+    India         14341537
+--------------------------------------------------
+🔹 Running Query #115...
+✅ Success! Returned 2 rows.
+ person
+ 106656
+ 106656
+--------------------------------------------------
+🔹 Running Query #116...
+✅ Success! Returned 2 rows.
+ person
+6680837
+6486219
+--------------------------------------------------
+🔹 Running Query #117...
+✅ Success! Returned 2 rows.
+ person
+ 382200
+ 382171
+--------------------------------------------------
+🔹 Running Query #118...
+✅ Success! Returned 1 rows.
+area_name sindhi_speakers
+    India         4451510
+--------------------------------------------------
+🔹 Running Query #119...
+✅ Success! Returned 1 rows.
+total_dogri_speakers
+             5193530
+--------------------------------------------------
+🔹 Running Query #120...
+✅ Success! Returned 1 rows.
+area_name        literacy_gap
+  Haryana 23.7941594379066882
+--------------------------------------------------
+🔹 Running Query #121...
+✅ Success! Returned 1 rows.
+area_name female_work_participation
+ Nagaland       46.9645247189072476
+--------------------------------------------------
+🔹 Running Query #122...
+✅ Success! Returned 1 rows.
+  p_06
+739969
+--------------------------------------------------
+🔹 Running Query #123...
+✅ Success! Returned 1 rows.
+area_name illiterate_men
+    India      377013272
+--------------------------------------------------
+🔹 Running Query #124...
+✅ Success! Returned 1 rows.
+area_name illiterate_women
+    India        517419058
+--------------------------------------------------
+🔹 Running Query #125...
+✅ Success! Returned 1 rows.
+   tot_p
+23053946
+--------------------------------------------------
+🔹 Running Query #126...
+✅ Success! Returned 1 rows.
+   tot_p
+15196308
+--------------------------------------------------
+🔹 Running Query #127...
+✅ Success! Returned 1 rows.
+area_name jain_men
+    India  2278097
+--------------------------------------------------
+🔹 Running Query #128...
+✅ Success! Returned 1 rows.
+area_name sikh_women
+    India    9884685
+--------------------------------------------------
+🔹 Running Query #129...
+✅ Success! Returned 1 rows.
+sanskrit_speakers
+            49530
+--------------------------------------------------
+🔹 Running Query #130...
+✅ Success! Returned 1 rows.
+area_name tulu_speakers
+    India       3688390
+--------------------------------------------------
+🔹 Running Query #131...
+✅ Success! Returned 4 rows.
+ name   person
+Rural 46244040
+Urban 18080923
+Rural 33235355
+Urban 16118232
+--------------------------------------------------
+🔹 Running Query #132...
+✅ Success! Returned 1 rows.
+                  religion_name work_participation_rate
+Other religions and persuasions     48.4979340451569680
+--------------------------------------------------
+🔹 Running Query #133...
+✅ Success! Returned 1 rows.
+ non_work_f
+    6523934
+--------------------------------------------------
+🔹 Running Query #134...
+✅ Success! Returned 1 rows.
+area_name literate_buddhist_men
+    India               3345185
+--------------------------------------------------
+🔹 Running Query #135...
+✅ Success! Returned 1 rows.
+ person
+1416125
+--------------------------------------------------
+🔹 Running Query #136...
+✅ Success! Returned 1 rows.
+area_name manipuri_speakers
+    India           3521992
+--------------------------------------------------
+🔹 Running Query #137...
+⚠️  Query ran successfully but returned NO data.
+Query: SELECT ls.person FROM language_stats ls JOIN regions r ON ls.state = r.state JOIN languages l ON ls.language_id = l.id JOIN tru t ON ls.tru_id = t.id WHERE r.area_name = 'Mizoram' AND l.name = 'Mizo' AND t.name = 'Total';
+--------------------------------------------------
+🔹 Running Query #138...
+✅ Success! Returned 1 rows.
+area_name khasi_speakers
+    India        2469308
+--------------------------------------------------
+🔹 Running Query #139...
+✅ Success! Returned 2 rows.
+ person
+ 936496
+ 930619
+--------------------------------------------------
+🔹 Running Query #140...
+✅ Success! Returned 1 rows.
+area_name bhili_speakers
+    India       13620170
+--------------------------------------------------
+🔹 Running Query #141...
+✅ Success! Returned 2 rows.
+ person
+1071400
+1009692
+--------------------------------------------------
+🔹 Running Query #142...
+✅ Success! Returned 1 rows.
+area_name kurukh_speakers
+    India         3965270
+--------------------------------------------------
+🔹 Running Query #143...
+✅ Success! Returned 2 rows.
+ person
+ 942108
+ 941965
+--------------------------------------------------
+🔹 Running Query #144...
+✅ Success! Returned 1 rows.
+area_name ho_speakers
+    India     2832414
+--------------------------------------------------
+🔹 Running Query #145...
+✅ Success! Returned 2 rows.
+ person
+1616730
+   2887
+--------------------------------------------------
+🔹 Running Query #146...
+✅ Success! Returned 1 rows.
+religion_name rural_population
+        Total        833748852
+--------------------------------------------------
+🔹 Running Query #147...
+✅ Success! Returned 1 rows.
+religion_name   urbanization_rate
+         Jain 39.8376100381130759
+--------------------------------------------------
+🔹 Running Query #148...
+✅ Success! Returned 1 rows.
+ f_lit
+253009
+--------------------------------------------------
+🔹 Running Query #149...
+✅ Success! Returned 1 rows.
+area_name christian_men
+    India      13751031
+--------------------------------------------------
+🔹 Running Query #150...
+✅ Success! Returned 1 rows.
+  m_ill
+4427397
 --------------------------------------------------

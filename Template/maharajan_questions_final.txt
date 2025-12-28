@@ -1,0 +1,150 @@
+How many Muslims live in Kerala?
+How many people speak Hindi in Uttar Pradesh?
+How does the Christian population compare between rural and urban Goa?
+Which three languages are spoken the most in Karnataka?
+Which religion has the highest literacy rate in India?
+How many women in Tamil Nadu speak Tamil?
+How many Jains in Maharashtra are currently not working?
+How many people in rural West Bengal speak Bengali?
+Who has a larger Sikh population: Punjab or Haryana?
+What is the literacy gap between Hindu men and women in India?
+Which states have the largest populations? List them in order.
+Which 5 states have the most people living in rural areas?
+Which 5 states have the most people living in urban areas?
+Which states have more women than men?
+Which states show the biggest difference in gender balance between their villages and cities?
+Which three age groups account for the most people in India?
+Can you break down the population by age, state, and whether they live in a city or village?
+Which state has the most young children (0-6) living in rural areas?
+What percentage of each state's total population is female?
+Which age group is the largest in the rural areas of each state?
+Which states have more people living in cities than in villages?
+Which states have a rural population that is larger than their urban population?
+Which state has the highest number of men?
+Which state has the highest number of women?
+Which state has the largest gap between the number of men and women?
+Which states have a lot of young people but very few elderly people?
+Which states have a large elderly population?
+Which states have the biggest urban populations?
+Which states have the biggest rural populations?
+Which states have the most equal ratio of men to women?
+Which states have the smallest populations?
+Which states are more rural than urban?
+Which states are more urban than rural?
+In which states do rural women outnumber rural men?
+In which states do urban women outnumber urban men?
+Which states have the largest population of children (0-6)?
+Which states have the smallest population of elderly people?
+Which states have twice as many people living in villages as in cities?
+Which states have twice as many people living in cities as in villages?
+Which states have the smallest difference between the number of men and women?
+Which states have the fewest people living in rural areas?
+Which states have the fewest people living in urban areas?
+Which states have the most elderly people (60+)?
+Which states have more elderly people than young children?
+In which states do men outnumber women in urban areas?
+In which states do women outnumber men in rural areas?
+Which states have three times as many city dwellers as villagers?
+Which states have three times as many villagers as city dwellers?
+Which states have the largest workforce (people not children or elderly)?
+Which states have roughly the same number of people in rural and urban areas?
+List the states with the biggest rural populations.
+List the states with the biggest urban populations.
+Where is the gender gap the smallest?
+Which states have the most women?
+Which states have the most men?
+Which states have the highest percentage of children?
+Which states have the highest percentage of elderly people?
+In which states does the rural population exceed the urban population?
+In which states does the urban population exceed the rural population?
+Which states have a rural/urban population split that is almost equal (less than 10% difference)?
+Rank the states by total population.
+Which states have the smallest rural populations?
+Which states have the smallest urban populations?
+Which states have at least 20% more women than men?
+Which states have at least 20% more men than women?
+Which states have the most teenagers?
+Which states have the fewest young children?
+Which states have the largest working-age populations?
+Which states have the smallest working-age populations?
+Which states have nearly identical rural and urban population counts (within 5%)?
+Where do the most villagers live?
+Where do the most city dwellers live?
+Which states have a rural population that is double the urban one?
+Which states have an urban population that is double the rural one?
+Which states have the lowest overall population?
+Which states have the fewest women?
+Which states have the fewest men?
+Which states have the most children?
+Which states have the fewest teenagers?
+Which states have the largest number of elderly people?
+Which states have the most women living in rural areas?
+Which states have the most men living in rural areas?
+Which states have the most women living in urban areas?
+Which states have the most men living in urban areas?
+Which states have the fewest elderly people?
+Which states have the fewest children?
+Which states have the most adults (15-59)?
+Which states have the fewest adults (15-59)?
+Which states have a similar number of young children and elderly people?
+Which states have the biggest difference between their child and elderly populations?
+Which state is home to the most Muslims?
+Which state is home to the most Christians?
+Which state is home to the most Sikhs?
+Which state is home to the most Buddhists?
+Which state is home to the most Jains?
+Where are the most Marathi speakers found?
+Where are the most Telugu speakers found?
+Where are the most Urdu speakers found?
+Where are the most Malayalam speakers found?
+Where are the most Punjabi speakers found?
+How many people speak Gujarati in Gujarat?
+Which state has the largest number of Odia speakers?
+How many people in Assam speak Assamese?
+Count the number of Kannada speakers in rural areas of Karnataka.
+Which state has the most people speaking Konkani?
+How many women are literate among the Muslim population in India?
+Which state has the highest number of literate Hindu women?
+How many Christians in Kerala are currently working?
+Find the total number of illiterate Jains in Rajasthan.
+Which religion has the lowest female literacy rate in Uttar Pradesh?
+How many Sikh men live in rural Punjab?
+Which state has the highest number of Buddhists living in cities?
+How many people speak Maithili in Bihar?
+Which state has the most Santali speakers?
+How many people list English as their language in Maharashtra?
+What is the total number of Kashmiri speakers in Jammu & Kashmir?
+How many Nepali speakers live in Sikkim?
+Which state has the largest Sindhi-speaking population?
+How many Dogri speakers are there in India?
+In which state is the gender gap in literacy the highest for Muslims?
+Which state has the highest percentage of working women among Christians?
+How many Buddhist children (0-6) are there in Maharashtra?
+Which state has the largest population of illiterate men?
+Which state has the largest population of illiterate women?
+How many Hindus live in the urban areas of West Bengal?
+How many Muslims live in the rural areas of Bihar?
+Which state has the most Jain men?
+Which state has the most Sikh women?
+How many people speak Sanskrit in India?
+Which state has the highest number of Tulu speakers?
+Compare the number of Hindi speakers in rural vs urban Madhya Pradesh.
+Which religious group has the highest workforce participation in India?
+How many women are non-workers among the Sikh population in Punjab?
+Which state has the highest number of literate Buddhist men?
+How many people speak Bodo in Assam?
+Which state has the most Manipuri speakers?
+How many people speak Mizo in Mizoram?
+Which state has the largest population of Khasi speakers?
+How many Garo speakers live in Meghalaya?
+Which state has the most Bhili/Bhilodi speakers?
+How many Gondi speakers are there in Chhattisgarh?
+Which state has the highest number of Kurukh/Oraon speakers?
+How many people speak Mundari in Jharkhand?
+Which state has the most Ho speakers?
+How many Khandeshi speakers are there in Maharashtra?
+Which religious community has the most people living in rural India?
+Which religious community is the most urbanized in India?
+How many Jain women are literate in Gujarat?
+Which state has the highest number of Christian men?
+How many Muslim men are illiterate in Bihar?
